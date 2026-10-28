@@ -1,0 +1,20 @@
+cmake_minimum_required(VERSION 3.14)
+project(PvZSimplized LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 17)
+find_package(SDL2 REQUIRED)
+find_package(Python3 REQUIRED COMPONENTS Interpreter)
+file(GLOB_RECURSE PVZ_ASSETS CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/assets/*")
+add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/generated/assets.h"
+    COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/mini/prepare_assets.py"
+    DEPENDS mini/prepare_assets.py ${PVZ_ASSETS}
+    VERBATIM)
+add_custom_target(pvz-assets DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/generated/assets.h")
+add_executable(pvz-simplized mini/native.cpp mini/game.cpp)
+add_dependencies(pvz-simplized pvz-assets)
+target_compile_options(pvz-simplized PRIVATE -fno-strict-aliasing)
+target_link_libraries(pvz-simplized PRIVATE SDL2::SDL2)
+add_executable(pvz-unit mini/unit.cpp mini/game.cpp)
+add_dependencies(pvz-unit pvz-assets)
+target_compile_options(pvz-unit PRIVATE -fno-strict-aliasing -UNDEBUG)
+enable_testing()
+add_test(NAME pvz-unit COMMAND pvz-unit)

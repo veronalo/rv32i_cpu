@@ -1,0 +1,41 @@
+# 构建产物与自动生成的素材
+/build/
+/obj_dir/
+/sw/PvZ-simplized/generated/
+/sw/mario/generated/
+
+# 本地导入的原版 Mario 图形缓存及游戏 ROM
+/sw/mario/assets/smb-litenes.chr
+*.nes
+
+# 仿真波形、编译中间文件与性能分析结果
+*.vcd
+*.fst
+*.o
+*.a
+*.so
+*.elf
+*.d
+*.gcda
+*.gcno
+*.profraw
+*.profdata
+gmon.out
+
+# Python 缓存和虚拟环境
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# 本地配置、编辑器临时文件与系统杂项
+.env
+.env.*
+!.env.example
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
