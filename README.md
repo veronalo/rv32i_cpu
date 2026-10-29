@@ -1,6 +1,6 @@
 # RV32I_CPU Project 概述
 
-> by 赵楼晗 3240104430
+> by zlh
 
 ## 功能概述
 
@@ -96,6 +96,19 @@ sudo apt install build-essential verilator iverilog \
 ```
 
 另外本地需有已构建的 NVBoard（详见[NVBoard github仓库](https://github.com/NJU-ProjectN/nvboard)中的说明），在本项目中用 `NVBOARD_HOME` 指定路径；运行 NEMU 对照时，用 `NEMU_SRC` 指定原始源码路径。二者均可作为 `make` 参数覆盖本机默认值。
+
+### Verillator 波形仿真
+```bash
+cd rv32i_cpu
+
+make core-test
+./build/core/Vrv32i_core --trace
+```
+可以使用`gtkwave`查看波形：
+```bash
+gtkwave build/core.vcd
+```
+![波形](assets/image-4.png)
 
 ### 裸机运行简易 C/C++ 程序
 
